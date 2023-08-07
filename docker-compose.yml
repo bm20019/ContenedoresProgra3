@@ -1,0 +1,40 @@
+version: '3.3'
+
+services:
+  dbPostgres:
+    image: postgres:15.3-alpine3.18
+    container_name: contenedor_db_postgres
+    environment:
+      - POSTGRES_PASSWORD=abc123
+    ports:
+      - 5432:5432
+    volumes:
+      - ./postgres/data:/var/lib/postgresql/data
+      - ./postgres/scripts:/docker-entrypoint-initdb.d
+    network_mode: host
+
+  pgAdmin:
+    image: dpage/pgadmin4:latest
+    container_name: contenedor_pgAdmin
+    depends_on:
+      - dbPostgres
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=example@email.com
+      - PGADMIN_DEFAULT_PASSWORD=abc123
+      - PGADMIN_LISTEN_PORT=5050
+    ports:
+      - 5050:5050
+    network_mode: host
+
+  payaraServer:
+    image: payara/server-full:6.2023.7-jdk17
+    container_name: contenedor_payara6
+    depends_on:
+      - dbPostgres
+    ports:
+      - 4848:4848
+      - 8080:8080
+    volumes:
+      - ./payara/deploy:/opt/payara/deployments/
+      - ./payara/driverSql/postgresql-42.6.0.jar:/opt/payara/appserver/glassfish/domains/domain1/lib/postgresql-42.6.0.jar
+    network_mode: host
