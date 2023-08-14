@@ -6,6 +6,7 @@ services:
     container_name: contenedor_db_postgres
     environment:
       - POSTGRES_PASSWORD=abc123
+      - POSTGRES_DB=parqueo
     ports:
       - 5432:5432
     volumes:
@@ -40,3 +41,5 @@ services:
 
 volumes:
   postgres_data:
+
+#asadmin create-jdbc-connection-pool --datasourceclassname org.postgresql.ds.PGSimpleDataSource --restype javax.sql.DataSource --property user=postgres:password=abc123:servername=localhost:portnumber=5432:databasename=parqueo pg_localhost_parqueo
