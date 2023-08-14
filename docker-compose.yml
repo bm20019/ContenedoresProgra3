@@ -9,7 +9,7 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - ./postgres/data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
       - ./postgres/scripts:/docker-entrypoint-initdb.d
     network_mode: host
 
@@ -35,6 +35,8 @@ services:
       - 4848:4848
       - 8080:8080
     volumes:
-      - ./payara/deploy:/opt/payara/deployments/
       - ./payara/driverSql/postgresql-42.6.0.jar:/opt/payara/appserver/glassfish/domains/domain1/lib/postgresql-42.6.0.jar
     network_mode: host
+
+volumes:
+  postgres_data:
