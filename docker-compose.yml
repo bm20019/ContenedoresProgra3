@@ -43,3 +43,4 @@ volumes:
   postgres_data:
 
 #asadmin create-jdbc-connection-pool --datasourceclassname org.postgresql.ds.PGSimpleDataSource --restype javax.sql.DataSource --property user=postgres:password=abc123:servername=localhost:portnumber=5432:databasename=parqueo pg_localhost_parqueo
+#asadmin create-jdbc-resource --connectionpoolid pg_localhost_parqueo jdbc/pgdb
