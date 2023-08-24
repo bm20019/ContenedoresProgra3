@@ -15,7 +15,7 @@ services:
     network_mode: host
 
   pgAdmin:
-    image: dpage/pgadmin4:latest
+    image: dpage/pgadmin4:7.6
     container_name: contenedor_pgAdmin
     depends_on:
       - dbPostgres
@@ -25,22 +25,6 @@ services:
       - PGADMIN_LISTEN_PORT=5050
     ports:
       - 5050:5050
-    network_mode: host
-
-  payaraServer:
-    image: payara/server-full:6.2023.7-jdk17
-    container_name: contenedor_payara6
-    depends_on:
-      - dbPostgres
-    ports:
-      - 4848:4848
-      - 8080:8080
-    volumes:
-      - ./payara/driverSql/postgresql-42.6.0.jar:/opt/payara/appserver/glassfish/domains/domain1/lib/postgresql-42.6.0.jar
-    network_mode: host
 
 volumes:
   postgres_data:
-
-#asadmin create-jdbc-connection-pool --datasourceclassname org.postgresql.ds.PGSimpleDataSource --restype javax.sql.DataSource --property user=postgres:password=abc123:servername=localhost:portnumber=5432:databasename=parqueo pg_localhost_parqueo
-#asadmin create-jdbc-resource --connectionpoolid pg_localhost_parqueo jdbc/pgdb
